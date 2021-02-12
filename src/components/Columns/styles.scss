@@ -1,5 +1,8 @@
+$shadow: 0 3px 7px rgba(0, 0, 0, 0.25);
+
 .page-wrapper {
   padding: 30px;
+  position: relative;
 }
 .columns-wrapper {
   display: flex;
@@ -15,5 +18,12 @@
   max-width: 280px;
   padding: 15px;
   background: #fff;
-  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.25);
+  box-shadow: $shadow;
+}
+.form-wrapper {
+  position: absolute;
+  padding: 15px;
+  top: 55px;
+  background: #fff;
+  box-shadow: $shadow;
 }

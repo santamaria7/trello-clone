@@ -8,6 +8,7 @@ const Columns = () => {
     columns,
     toggleAddColumnForm,
     showAddColumnForm,
+      setShowAddColumnForm,
     updateColumns,
   } = useColumns();
   return (
@@ -20,7 +21,7 @@ const Columns = () => {
           return <div className="column" key={`${column.name}-${index}`}>{column.name}</div>;
         })}
       </div>
-      {showAddColumnForm && <AddColumnForm onSuccess={updateColumns} />}
+      {showAddColumnForm && <AddColumnForm onSuccess={updateColumns} onCancel={() => setShowAddColumnForm(false)}/>}
     </div>
   );
 };

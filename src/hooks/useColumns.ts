@@ -28,6 +28,7 @@ export const useColumns = () => {
     columns,
     toggleAddColumnForm,
     showAddColumnForm,
+    setShowAddColumnForm,
     updateColumns,
   };
 };
