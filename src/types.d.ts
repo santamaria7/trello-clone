@@ -1,5 +1,5 @@
 type Task = {
-  id: number;
+  id: string;
   creator: string;
   date: number; //timestamp
   status: string;
@@ -22,8 +22,15 @@ type ColumnFormType = {
 
 type SingleColumnType = {
   column: Column;
-}
+};
 
 type SingleTaskType = {
   task: Task;
-}
+};
+
+type TaskFormType = {
+  onSuccess: (payload: Task) => void;
+  onCancel: () => void;
+  columnName: string;
+  taskId: string;
+};
