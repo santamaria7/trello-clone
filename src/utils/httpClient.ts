@@ -43,8 +43,7 @@ function requestCallBack(
 ) {
   switch (xhr.status) {
     case 200:
-      let res = "";
-      console.log(xhr.response);
+      let res;
       if (xhr.response !== "") {
         res = JSON.parse(xhr.response);
       }
