@@ -1,28 +1,29 @@
 import React, { FormEvent, useState } from "react";
 
-const AddTaskForm: React.FC<TaskFormType> = ({
+const AddEditTaskForm: React.FC<TaskFormType> = ({
   onSuccess,
   onCancel,
   columnName: status,
   taskId,
+    task
 }) => {
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [assignee, setAssignee] = useState<string>("");
+  const [title, setTitle] = useState<string>(task?.title || "");
+  const [description, setDescription] = useState<string>(task?.description || "");
+  const [assignee, setAssignee] = useState<string>(task?.assignee || "");
   function addTask(e: FormEvent) {
     e.preventDefault();
     if(title.length > 0){
-      const task: Task = {
+      const payload: Task = {
         title,
         description,
         status,
-        creator: "MZ B", // In a real world example we have user that has logged in and the name appears here
+        creator: task?.creator || "MZ B", // In a real world example we have user that has logged in and the name appears here
         assignee,
-        date: new Date().getTime(),
-        id: taskId,
+        date: task?.date || new Date().getTime(),
+        id: task?.id || taskId,
       };
       //TODO: add API call to save the task in the DB
-      onSuccess(task);
+      onSuccess(payload);
     }
 
   }
@@ -66,4 +67,4 @@ const AddTaskForm: React.FC<TaskFormType> = ({
   );
 };
 
-export default AddTaskForm;
+export default AddEditTaskForm;

@@ -26,6 +26,7 @@ type SingleColumnType = {
 
 type SingleTaskType = {
   task: Task;
+  onClick: ()=> void;
 };
 
 type TaskFormType = {
@@ -33,4 +34,5 @@ type TaskFormType = {
   onCancel: () => void;
   columnName: string;
   taskId: string;
+  task?: Task;
 };

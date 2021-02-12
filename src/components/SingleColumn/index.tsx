@@ -1,16 +1,30 @@
 import React, { useState } from "react";
 import SingleTask from "../SingleTask";
-import AddTaskForm from "../AddTaskForm";
+import AddEditTaskForm from "../AddEditTaskForm";
 
 const SingleColumn: React.FC<SingleColumnType> = ({ column }) => {
   const [showAddTask, setShowAddTask] = useState<boolean>(false);
+  const [editingTask, setEditingTask] = useState<Task | undefined>(undefined);
   // Again, we could use Redux here
   const [tasks, setTasks] = useState<Task[]>(column.tasks || []);
   function toggleAddTaskForm() {
     setShowAddTask((prevState) => !prevState);
   }
   function updateTasks(task: Task) {
-    setTasks((prevState) => [...prevState, task]);
+    setTasks((prevState) => {
+      const existing = prevState.findIndex((item) => item.id === task.id);
+      if (existing === -1) {
+        return [...prevState, task];
+      }
+      // if the item exists, replace it => prevents task duplication
+      const copy = [...prevState];
+      copy.splice(existing, 1, task);
+      return copy;
+    });
+    toggleAddTaskForm();
+  }
+  function editTask(task: Task) {
+    setEditingTask(task);
     toggleAddTaskForm();
   }
   return (
@@ -20,14 +34,21 @@ const SingleColumn: React.FC<SingleColumnType> = ({ column }) => {
         Add A New Task
       </button>
       {tasks.map((task, index) => {
-        return <SingleTask key={`${task.id}-${index}`} task={task} />;
+        return (
+          <SingleTask
+            key={`${task.id}-${index}`}
+            task={task}
+            onClick={() => editTask(task)}
+          />
+        );
       })}
       {showAddTask && (
-        <AddTaskForm
+        <AddEditTaskForm
           onSuccess={updateTasks}
           onCancel={() => toggleAddTaskForm()}
           columnName={column.name}
           taskId={`${column.name}-${tasks.length}`}
+          task={editingTask}
         />
       )}
     </div>
