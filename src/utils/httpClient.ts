@@ -44,6 +44,7 @@ function requestCallBack(
   switch (xhr.status) {
     case 200:
       let res = "";
+      console.log(xhr.response);
       if (xhr.response !== "") {
         res = JSON.parse(xhr.response);
       }
@@ -74,7 +75,7 @@ function createXHR(
 ) {
   const { method = "GET", url, data } = params;
   let xhr = new XMLHttpRequest();
-  xhr.open(method, url, true);
+  xhr.open(method, `http://localhost:9000${url}`, true);
 
   setUpRequestHeaders(xhr, params);
 
