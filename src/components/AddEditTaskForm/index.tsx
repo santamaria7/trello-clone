@@ -3,16 +3,19 @@ import React, { FormEvent, useState } from "react";
 const AddEditTaskForm: React.FC<TaskFormType> = ({
   onSuccess,
   onCancel,
+  deleteTask,
   columnName: status,
   taskId,
-    task
+  task,
 }) => {
   const [title, setTitle] = useState<string>(task?.title || "");
-  const [description, setDescription] = useState<string>(task?.description || "");
+  const [description, setDescription] = useState<string>(
+    task?.description || ""
+  );
   const [assignee, setAssignee] = useState<string>(task?.assignee || "");
   function addTask(e: FormEvent) {
     e.preventDefault();
-    if(title.length > 0){
+    if (title.length > 0) {
       const payload: Task = {
         title,
         description,
@@ -25,19 +28,20 @@ const AddEditTaskForm: React.FC<TaskFormType> = ({
       //TODO: add API call to save the task in the DB
       onSuccess(payload);
     }
-
   }
-  function cancelForm(e: any){
-    if(e.target.id === 'task-form-wrapper'){
-      onCancel()
+  function cancelForm(e: any) {
+    if (e.target.id === "task-form-wrapper") {
+      onCancel();
     }
   }
   return (
-    <div className="task-form-wrapper" id="task-form-wrapper" onClick={cancelForm}>
+    <div
+      className="task-form-wrapper"
+      id="task-form-wrapper"
+      onClick={cancelForm}
+    >
       <form onSubmit={addTask}>
-        <label>
-          Title:
-        </label>
+        <label>Title:</label>
         <input
           type="text"
           value={title}
@@ -62,6 +66,11 @@ const AddEditTaskForm: React.FC<TaskFormType> = ({
         <button type="button" onClick={onCancel}>
           Cancel
         </button>
+        {task && (
+          <button type="button" onClick={() => deleteTask(task?.id)}>
+            Delete
+          </button>
+        )}
       </form>
     </div>
   );

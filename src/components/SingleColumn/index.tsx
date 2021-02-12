@@ -23,6 +23,17 @@ const SingleColumn: React.FC<SingleColumnType> = ({ column }) => {
     });
     toggleAddTaskForm();
   }
+  function deleteTask(taskId: string){
+    //TODO: API call to update the DB
+    const existing = tasks.findIndex((item) => item.id === taskId);
+    if (existing !== -1) {
+      const copy = [...tasks];
+      copy.splice(existing, 1);
+      setTasks(copy);
+      toggleAddTaskForm();
+    }
+
+  }
   function editTask(task: Task) {
     setEditingTask(task);
     toggleAddTaskForm();
@@ -46,6 +57,7 @@ const SingleColumn: React.FC<SingleColumnType> = ({ column }) => {
         <AddEditTaskForm
           onSuccess={updateTasks}
           onCancel={() => toggleAddTaskForm()}
+          deleteTask={deleteTask}
           columnName={column.name}
           taskId={`${column.name}-${tasks.length}`}
           task={editingTask}

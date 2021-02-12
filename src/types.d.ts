@@ -32,6 +32,7 @@ type SingleTaskType = {
 type TaskFormType = {
   onSuccess: (payload: Task) => void;
   onCancel: () => void;
+  deleteTask: (id: string)=> void;
   columnName: string;
   taskId: string;
   task?: Task;
