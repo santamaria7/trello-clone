@@ -13,7 +13,7 @@ const AddColumnForm: React.FC<ColumnFormType> = ({ onSuccess }) => {
     });
     // Note that here we could use redux action to update the whole application from top.
     // I found this solution faster, yet not as optimized as I wanted it to be.
-    onSuccess(res);
+    onSuccess(res as Column);
   }
   return (
     <div className="form-wrapper">

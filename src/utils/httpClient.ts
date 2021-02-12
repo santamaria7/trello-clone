@@ -30,35 +30,7 @@ function setUpRequestHeaders(
   }
 }
 
-/**
- * handle request callback
- * @param xhr
- * @param resolve
- * @param reject
- */
-function requestCallBack(
-  xhr: XMLHttpRequest,
-  resolve: Function,
-  reject: Function
-) {
-  switch (xhr.status) {
-    case 200:
-      let res;
-      if (xhr.response !== "") {
-        res = JSON.parse(xhr.response);
-      }
-      resolve(res);
-      break;
 
-    case 404:
-      reject({ status: xhr.status });
-      break;
-    default:
-      let error = JSON.parse(xhr.response);
-      reject({ error, status: xhr.status });
-      break;
-  }
-}
 
 /**
  *
@@ -67,22 +39,6 @@ function requestCallBack(
  * @param reject {function}
  */
 
-function createXHR(
-  params: ParamsType,
-  resolve: Function,
-  reject: Function
-) {
-  const { method = "GET", url, data } = params;
-  let xhr = new XMLHttpRequest();
-  xhr.open(method, `http://localhost:9000${url}`, true);
-
-  setUpRequestHeaders(xhr, params);
-
-  xhr.onload = () => {
-    requestCallBack(xhr, resolve, reject);
-  };
-  data && data !== "" ? xhr.send(data) : xhr.send();
-}
 
 /**
  * Handle XMLHttpRequest
@@ -90,12 +46,37 @@ function createXHR(
  * @returns {Promise<any>}
  */
 export async function httpClient(params: ParamsType) {
-  const { url } = params;
+  const { method = "GET", url, data } = params;
   return new Promise((resolve, reject) => {
     if (!url) {
       reject({ status: 404, data: "no data" });
       return;
     }
-    createXHR(params, resolve, reject);
+
+    let xhr = new XMLHttpRequest();
+    xhr.open(method, `http://localhost:9000${url}`, true);
+
+    setUpRequestHeaders(xhr, params);
+
+    xhr.onload = () => {
+      switch (xhr.status) {
+        case 200:
+          let res;
+          if (xhr.response !== "") {
+            res = JSON.parse(xhr.response);
+          }
+          resolve(res);
+          break;
+
+        case 404:
+          reject({ status: xhr.status });
+          break;
+        default:
+          let error = JSON.parse(xhr.response);
+          reject({ error, status: xhr.status });
+          break;
+      }
+    };
+    data && data !== "" ? xhr.send(data) : xhr.send();
   });
 }
