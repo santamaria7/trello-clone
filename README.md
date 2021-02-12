@@ -1,46 +1,20 @@
-# Getting Started with Create React App
+# Trello Clone
+This project uses react, express.js and mysql. To run the project locally, create an env file and add the following items to it:   
+      
+   ``DB_USER=[YOUR_USER_NAME]  
+     DB_PASSWORD=[YOUR_PASSWORD]
+     DB_NAME=[YOUR_DB_NAME]
+   ``   
+   make sure to create the tasks table in your mysql ddatabase and that mysql is up and running.   
+   After installing the dependencies you can run the project in dev mode via `npm run dev`.   
+   
+   Unfortunately I didn't have time to finish the API calls. If I had more time I would have taken care of the following:
+   1. Handling the API calls properly,
+   2. using `Redux` for state management. Every single place that a component is updating its parent, should have been handled via `Redux`. The main reason I couldn't implement moving cards was that state management has been handled poorly.
+   3. using a css famework like `tailwind` for better UI
+   4. implement basic user authentication.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+   
+   
 
-## Available Scripts
 
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
