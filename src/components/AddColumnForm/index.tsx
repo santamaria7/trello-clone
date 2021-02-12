@@ -1,16 +1,22 @@
 import { httpClient } from "../../utils/httpClient";
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 
 
 
 const AddColumnForm: React.FC<ColumnFormType> = ({ onSuccess }) => {
   const [name, setName] = useState<string>("");
-  async function addNewColumn() {
-    const res = await httpClient({
+  async function addNewColumn(e: FormEvent) {
+    e.preventDefault();
+    //TODO: uncomment when API codes are ready
+    /*const res = await httpClient({
       url: "/add-column",
       method: "POST",
       data: name,
-    });
+    })*/
+    const res = {
+      name,
+      tasks: []
+    };
     // Note that here we could use redux action to update the whole application from top.
     // I found this solution faster, yet not as optimized as I wanted it to be.
     onSuccess(res as Column);

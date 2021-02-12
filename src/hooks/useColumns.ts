@@ -16,7 +16,7 @@ export const useColumns = () => {
   }
 
   function updateColumns(column: Column) {
-    setColumns((prevState) => ({ ...prevState, column }));
+    setColumns((prevState) => ([...prevState, column ]));
   }
 
   useEffect(() => {
