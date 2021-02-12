@@ -1,21 +1,7 @@
 import { useEffect, useState } from "react";
 import { httpClient } from "../utils/httpClient";
 
-type Task = {
-  creator: string;
-  date: number; //timestamp
-  status: string;
-  assignee?: string;
-  title: string;
-  description?: string;
-};
 
-type Column = {
-  name: string;
-  tasks?: Task[];
-};
-
-type ColumnsType = Column[];
 
 export const useColumns = () => {
   const [columns, setColumns] = useState<ColumnsType>([]);

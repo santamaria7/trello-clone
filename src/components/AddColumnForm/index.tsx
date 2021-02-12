@@ -1,9 +1,7 @@
 import { httpClient } from "../../utils/httpClient";
 import React, { useState } from "react";
 
-type ColumnFormType = {
-    onSuccess: (payload: Column)=> void
-}
+
 
 const AddColumnForm: React.FC<ColumnFormType> = ({ onSuccess }) => {
   const [name, setName] = useState<string>("");
