@@ -17,6 +17,7 @@ export const useColumns = () => {
 
   function updateColumns(column: Column) {
     setColumns((prevState) => ([...prevState, column ]));
+    toggleAddColumnForm()
   }
 
   useEffect(() => {
