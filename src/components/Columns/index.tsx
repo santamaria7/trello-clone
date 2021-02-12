@@ -2,6 +2,7 @@ import React from "react";
 import { useColumns } from "../../hooks/useColumns";
 import AddColumnForm from "../AddColumnForm";
 import "./styles.scss";
+import SingleColumn from "../SingleColumn";
 
 const Columns = () => {
   const {
@@ -18,7 +19,7 @@ const Columns = () => {
       </button>
       <div className="columns-wrapper">
         {columns.map((column, index) => {
-          return <div className="column" key={`${column.name}-${index}`}>{column.name}</div>;
+          return <SingleColumn key={`${column.name}-${index}`} column={column}/>
         })}
       </div>
       {showAddColumnForm && <AddColumnForm onSuccess={updateColumns} onCancel={() => setShowAddColumnForm(false)}/>}
