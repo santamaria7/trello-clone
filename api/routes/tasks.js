@@ -3,15 +3,15 @@ import {db} from '../db';
 const router = express.Router();
 
 router.get('/', function(req, res, next) {
+    let data;
     db.connect();
-    db.query('SELECT * FROM tasks', function (err, rows, fields) {
+    db.query('SELECT * FROM tasks', function (err, rows) {
         if (err) throw err;
-
-        console.log('The solution is: ', rows)
+        data = rows;
     });
 
     db.end();
-res.status(200).send('list');
+res.status(200).send(data);
 });
 
 export default router;
