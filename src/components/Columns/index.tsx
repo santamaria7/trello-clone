@@ -1,7 +1,7 @@
 import React from "react";
 import { useColumns } from "../../hooks/useColumns";
 import AddColumnForm from "../AddColumnForm";
-import "./styles.scss";
+import "../styles.scss";
 import SingleColumn from "../SingleColumn";
 
 const Columns = () => {
