@@ -5,7 +5,7 @@ This project uses react, express.js and mysql. To run the project locally, creat
      DB_PASSWORD=[YOUR_PASSWORD]
      DB_NAME=[YOUR_DB_NAME]
    ``   
-   make sure to create the tasks table in your mysql ddatabase and that mysql is up and running.   
+   make sure to create the tasks table in your mysql ddatabase and that mysql is up and running.  Use the `trello_clone.sql` file to import the structure into your database. 
    After installing the dependencies you can run the project in dev mode via `npm run dev`.   
    
    Unfortunately I didn't have time to finish the API calls. If I had more time I would have taken care of the following:
