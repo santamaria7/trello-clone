@@ -3,18 +3,19 @@ import { httpClient } from "../utils/httpClient";
 
 import { useDispatch, useSelector } from "react-redux";
 import { columnsReceivedAction } from "../store/actions/columnsReceivedAction";
-import { updateColumnsAction } from "../store/actions/updateColumnsAction";
+import { addColumnsAction } from "../store/actions/updateColumnsAction";
 export const useColumns = () => {
   const dispatch = useDispatch();
-  const columns = useSelector<State>((state) => state.columns) as ColumnsType;
+  const columns = useSelector<State>((state) => state.columns) as string[];
+  const tasks = useSelector<State>((state) => state.tasks) as TasksType;
   const [showAddColumnForm, setShowAddColumnForm] = useState<boolean>(false);
   async function fetchColumns() {
     const res = (await httpClient({ url: "/tasks" })) as Column[];
     const modifiedRes = res.reduce((final, x) => {
-      //TODO: check later if we can just pass the x.tasks and not the whole x
-      final[x.name] = x;
+      final[x.name] = x.tasks!;
       return final;
-    }, {} as ColumnsType);
+    }, {} as TasksType);
+
     dispatch(columnsReceivedAction(modifiedRes));
   }
 
@@ -22,8 +23,9 @@ export const useColumns = () => {
     setShowAddColumnForm((prevState) => !prevState);
   }
 
-  function updateColumns(column: Column) {
-    dispatch(updateColumnsAction(column));
+  function updateColumns(name: string) {
+    //TODO: check for column duplication
+    dispatch(addColumnsAction({name}));
     toggleAddColumnForm();
   }
 
@@ -33,6 +35,7 @@ export const useColumns = () => {
 
   return {
     columns,
+    tasks,
     toggleAddColumnForm,
     showAddColumnForm,
     setShowAddColumnForm,

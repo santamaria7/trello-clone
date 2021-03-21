@@ -14,14 +14,16 @@ type Column = {
 };
 
 type ColumnsType = Record<string, Column>;
+type TasksType = Record<string, Task[]>;
 
 type ColumnFormType = {
-  onSuccess: (payload: Column) => void;
+  onSuccess: (payload: string) => void;
   onCancel: () => void;
 };
 
 type SingleColumnType = {
-  column: Column;
+  name: string;
+  tasks: Task[]
 };
 
 type SingleTaskType = {
@@ -46,5 +48,25 @@ type Action<T> ={
 }
 
 type State = {
-  columns: ColumnsType;
+  columns: string[];
+  tasks:TasksType
+}
+
+type UpdateTask = {
+  colName: string;
+  task: Task
+}
+
+type DeleteTask = {
+  colName: string;
+  id: string;
+}
+type MoveTask = {
+  parent: string;
+  target: string;
+  task: Task;
+}
+
+type AddColumn = {
+  name: string;
 }

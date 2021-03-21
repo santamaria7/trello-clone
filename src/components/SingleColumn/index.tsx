@@ -1,50 +1,42 @@
 import React, { useState } from "react";
 import SingleTask from "../SingleTask";
 import AddEditTaskForm from "../AddEditTaskForm";
+import { useDispatch } from "react-redux";
+import { updateColumnTasksAction } from "../../store/actions/updateColumnTasksAction";
+import { deleteTaskAction } from "../../store/actions/deleteTaskAction";
 
-const SingleColumn: React.FC<SingleColumnType> = ({ column }) => {
+const SingleColumn: React.FC<SingleColumnType> = ({ name, tasks}) => {
+  const dispatch = useDispatch();
   const [showAddTask, setShowAddTask] = useState<boolean>(false);
   const [editingTask, setEditingTask] = useState<Task | undefined>(undefined);
-  // Again, we could use Redux here
-  const [tasks, setTasks] = useState<Task[]>(column.tasks || []);
   function toggleAddTaskForm() {
     setShowAddTask((prevState) => !prevState);
   }
   function updateTasks(task: Task) {
-    setTasks((prevState) => {
-      const existing = prevState.findIndex((item) => item.id === task.id);
-      if (existing === -1) {
-        return [...prevState, task];
-      }
-      // if the item exists, replace it => prevents task duplication
-      const copy = [...prevState];
-      copy.splice(existing, 1, task);
-      return copy;
-    });
+   dispatch(updateColumnTasksAction({
+     colName: name,
+     task
+   }))
     toggleAddTaskForm();
   }
   function deleteTask(taskId: string){
     //TODO: API call to update the DB
-    const existing = tasks.findIndex((item) => item.id === taskId);
-    if (existing !== -1) {
-      const copy = [...tasks];
-      copy.splice(existing, 1);
-      setTasks(copy);
+    dispatch(deleteTaskAction(taskId))
       toggleAddTaskForm();
     }
 
-  }
+
   function editTask(task: Task) {
     setEditingTask(task);
     toggleAddTaskForm();
   }
   return (
     <div className="column">
-      <h3>{column.name}</h3>
+      <h3>{name}</h3>
       <button type="button" onClick={toggleAddTaskForm}>
         Add A New Task
       </button>
-      {tasks.map((task, index) => {
+      {tasks!.map((task, index) => {
         return (
           <SingleTask
             key={`${task.id}-${index}`}
@@ -58,8 +50,8 @@ const SingleColumn: React.FC<SingleColumnType> = ({ column }) => {
           onSuccess={updateTasks}
           onCancel={() => toggleAddTaskForm()}
           deleteTask={deleteTask}
-          columnName={column.name}
-          taskId={`${column.name}-${tasks.length}`}
+          columnName={name}
+          taskId={`${name}-${tasks!.length}`}
           task={editingTask}
         />
       )}

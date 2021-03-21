@@ -7,9 +7,10 @@ import SingleColumn from "../SingleColumn";
 const Columns = () => {
   const {
     columns,
+    tasks,
     toggleAddColumnForm,
     showAddColumnForm,
-      setShowAddColumnForm,
+    setShowAddColumnForm,
     updateColumns,
   } = useColumns();
   return (
@@ -18,12 +19,22 @@ const Columns = () => {
         Add A New Column
       </button>
       <div className="columns-wrapper">
-        {Object.keys(columns).map((name, index) => {
-            const column = columns[name]
-          return <SingleColumn key={`${column.name}-${index}`} column={column}/>
+        {columns.map((name, index) => {
+          return (
+            <SingleColumn
+              key={`${name}-${index}`}
+              tasks={tasks[name]}
+              name={name}
+            />
+          );
         })}
       </div>
-      {showAddColumnForm && <AddColumnForm onSuccess={updateColumns} onCancel={() => setShowAddColumnForm(false)}/>}
+      {showAddColumnForm && (
+        <AddColumnForm
+          onSuccess={updateColumns}
+          onCancel={() => setShowAddColumnForm(false)}
+        />
+      )}
     </div>
   );
 };

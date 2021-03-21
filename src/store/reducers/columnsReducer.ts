@@ -1,29 +1,20 @@
 import { actionTypes } from "../actionTypes";
 
-const columnInitialState = {};
+const columnInitialState: string[] = [];
 
-//TODO: 1. fix type and switch cases
-//TODO: 2. might need to pass multiple payload types
+//TODO: implement column removal
 export function columnsReducer(
   state = columnInitialState,
-  action: Action<ColumnsType | Column>
+  action: Action<ColumnsType | AddColumn>
 ) {
   switch (action.type) {
     case actionTypes.COLUMNS_RECEIVED:
-      return { ...action.payload };
-    case actionTypes.COLUMNS_UPDATED:
-      const { name } = action.payload as Column;
-      return { ...state, [name]: action.payload };
+      return Object.keys(action.payload as ColumnsType);
     case actionTypes.ADD_COLUMN:
-      return state;
+      return [...state,(action.payload as AddColumn).name];
     case actionTypes.REMOVE_COLUMN:
       return state;
-    case actionTypes.ADD_CARD:
-      return state;
-    case actionTypes.REMOVE_CARD:
-      return state;
-    case actionTypes.EDIT_CARD:
-      return state;
+
     default:
       return state;
   }

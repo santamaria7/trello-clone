@@ -1,8 +1,8 @@
 import { actionTypes } from "../actionTypes";
 
-export function updateColumnsAction(payload: Column){
+export function addColumnsAction(payload: AddColumn){
     return {
-        type: actionTypes.COLUMNS_UPDATED,
+        type: actionTypes.ADD_COLUMN,
         payload
     }
 }
