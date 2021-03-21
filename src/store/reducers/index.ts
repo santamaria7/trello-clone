@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
+import { columnsReducer } from "./columnsReducer";
 const rootReducer = combineReducers({
-    //TODO: add reducers
+    columns: columnsReducer
 });
 export default rootReducer;

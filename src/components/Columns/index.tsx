@@ -18,7 +18,8 @@ const Columns = () => {
         Add A New Column
       </button>
       <div className="columns-wrapper">
-        {columns.map((column, index) => {
+        {Object.keys(columns).map((name, index) => {
+            const column = columns[name]
           return <SingleColumn key={`${column.name}-${index}`} column={column}/>
         })}
       </div>

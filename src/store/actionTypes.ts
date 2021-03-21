@@ -4,4 +4,6 @@ export enum actionTypes {
     ADD_CARD= 'add_card',
     REMOVE_CARD='rm_card',
     EDIT_CARD='edit_card',
+    COLUMNS_RECEIVED= 'cols_rcvd',
+    COLUMNS_UPDATED = 'cols_updt'
 }

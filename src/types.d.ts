@@ -13,7 +13,7 @@ type Column = {
   tasks?: Task[];
 };
 
-type ColumnsType = Column[];
+type ColumnsType = Record<string, Column>;
 
 type ColumnFormType = {
   onSuccess: (payload: Column) => void;
@@ -43,4 +43,8 @@ type TaskFormType = {
 type Action<T> ={
   type: string;
   payload?: T;
+}
+
+type State = {
+  columns: ColumnsType;
 }
