@@ -37,3 +37,10 @@ type TaskFormType = {
   taskId: string;
   task?: Task;
 };
+
+/***************** store *******************/
+
+type Action<T> ={
+  type: string;
+  payload?: T;
+}
