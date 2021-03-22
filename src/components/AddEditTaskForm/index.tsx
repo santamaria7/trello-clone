@@ -1,18 +1,37 @@
 import React, { FormEvent, useState } from "react";
+import { updateColumnTasksAction } from "../../store/actions/updateColumnTasksAction";
+import { deleteTaskAction } from "../../store/actions/deleteTaskAction";
+import { useDispatch } from "react-redux";
 
 const AddEditTaskForm: React.FC<TaskFormType> = ({
-  onSuccess,
-  onCancel,
-  deleteTask,
+  closeAction,
   columnName: status,
   taskId,
   task,
 }) => {
+  const dispatch = useDispatch();
+
   const [title, setTitle] = useState<string>(task?.title || "");
   const [description, setDescription] = useState<string>(
     task?.description || ""
   );
   const [assignee, setAssignee] = useState<string>(task?.assignee || "");
+
+  function updateTasks(task: Task) {
+    dispatch(
+      updateColumnTasksAction({
+        colName: status,
+        task,
+      })
+    );
+    closeAction();
+  }
+  function deleteTask(taskId: string) {
+    //TODO: API call to update the DB
+    dispatch(deleteTaskAction(taskId));
+    closeAction();
+  }
+
   function addTask(e: FormEvent) {
     e.preventDefault();
     if (title.length > 0) {
@@ -20,18 +39,18 @@ const AddEditTaskForm: React.FC<TaskFormType> = ({
         title,
         description,
         status,
-        creator: task?.creator || "MZ B", // In a real world example we have user that has logged in and the name appears here
+        creator: task?.creator || "MZ B", // In real world cases, we have user that has logged in and the name appears here
         assignee,
         date: task?.date || new Date().getTime(),
         id: task?.id || taskId,
       };
       //TODO: add API call to save the task in the DB
-      onSuccess(payload);
+      updateTasks(payload);
     }
   }
   function cancelForm(e: any) {
     if (e.target.id === "task-form-wrapper") {
-      onCancel();
+      closeAction();
     }
   }
   return (
@@ -63,7 +82,7 @@ const AddEditTaskForm: React.FC<TaskFormType> = ({
           onChange={(e) => setAssignee(e.target.value)}
         />
         <button type="submit">Save</button>
-        <button type="button" onClick={onCancel}>
+        <button type="button" onClick={cancelForm}>
           Cancel
         </button>
         {task && (

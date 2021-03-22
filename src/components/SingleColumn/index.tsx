@@ -1,30 +1,14 @@
 import React, { useState } from "react";
 import SingleTask from "../SingleTask";
 import AddEditTaskForm from "../AddEditTaskForm";
-import { useDispatch } from "react-redux";
-import { updateColumnTasksAction } from "../../store/actions/updateColumnTasksAction";
-import { deleteTaskAction } from "../../store/actions/deleteTaskAction";
 
 const SingleColumn: React.FC<SingleColumnType> = ({ name, tasks}) => {
-  const dispatch = useDispatch();
   const [showAddTask, setShowAddTask] = useState<boolean>(false);
   const [editingTask, setEditingTask] = useState<Task | undefined>(undefined);
+
   function toggleAddTaskForm() {
     setShowAddTask((prevState) => !prevState);
   }
-  function updateTasks(task: Task) {
-   dispatch(updateColumnTasksAction({
-     colName: name,
-     task
-   }))
-    toggleAddTaskForm();
-  }
-  function deleteTask(taskId: string){
-    //TODO: API call to update the DB
-    dispatch(deleteTaskAction(taskId))
-      toggleAddTaskForm();
-    }
-
 
   function editTask(task: Task) {
     setEditingTask(task);
@@ -47,9 +31,7 @@ const SingleColumn: React.FC<SingleColumnType> = ({ name, tasks}) => {
       })}
       {showAddTask && (
         <AddEditTaskForm
-          onSuccess={updateTasks}
-          onCancel={() => toggleAddTaskForm()}
-          deleteTask={deleteTask}
+          closeAction={toggleAddTaskForm}
           columnName={name}
           taskId={`${name}-${tasks!.length}`}
           task={editingTask}
