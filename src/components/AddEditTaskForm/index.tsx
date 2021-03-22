@@ -28,7 +28,7 @@ const AddEditTaskForm: React.FC<TaskFormType> = ({
   }
   function deleteTask(taskId: string) {
     //TODO: API call to update the DB
-    dispatch(deleteTaskAction(taskId));
+    dispatch(deleteTaskAction({ colName: status, id: taskId }));
     closeAction();
   }
 
