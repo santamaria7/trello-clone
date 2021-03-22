@@ -11,7 +11,6 @@ const Columns = () => {
     toggleAddColumnForm,
     showAddColumnForm,
     setShowAddColumnForm,
-    updateColumns,
   } = useColumns();
   return (
     <div className="page-wrapper">
@@ -31,7 +30,7 @@ const Columns = () => {
       </div>
       {showAddColumnForm && (
         <AddColumnForm
-          onSuccess={updateColumns}
+          onSuccess={toggleAddColumnForm}
           onCancel={() => setShowAddColumnForm(false)}
         />
       )}

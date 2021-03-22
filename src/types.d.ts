@@ -17,7 +17,7 @@ type ColumnsType = Record<string, Column>;
 type TasksType = Record<string, Task[]>;
 
 type ColumnFormType = {
-  onSuccess: (payload: string) => void;
+  onSuccess: () => void;
   onCancel: () => void;
 };
 

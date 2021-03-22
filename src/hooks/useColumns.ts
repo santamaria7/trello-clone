@@ -3,7 +3,8 @@ import { httpClient } from "../utils/httpClient";
 
 import { useDispatch, useSelector } from "react-redux";
 import { columnsReceivedAction } from "../store/actions/columnsReceivedAction";
-import { addColumnsAction } from "../store/actions/updateColumnsAction";
+
+
 export const useColumns = () => {
   const dispatch = useDispatch();
   const columns = useSelector<State>((state) => state.columns) as string[];
@@ -23,11 +24,7 @@ export const useColumns = () => {
     setShowAddColumnForm((prevState) => !prevState);
   }
 
-  function updateColumns(name: string) {
-    //TODO: check for column duplication
-    dispatch(addColumnsAction({name}));
-    toggleAddColumnForm();
-  }
+
 
   useEffect(() => {
     fetchColumns();
@@ -39,6 +36,5 @@ export const useColumns = () => {
     toggleAddColumnForm,
     showAddColumnForm,
     setShowAddColumnForm,
-    updateColumns,
   };
 };
