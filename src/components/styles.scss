@@ -11,7 +11,6 @@ $cancel: #e9c14a;
   display: flex;
   overflow-x: auto;
   background: #f0f8ff;
-  background: #333333;
   width: 100%;
   height: 100vh;
   padding: 15px;
@@ -23,6 +22,9 @@ $cancel: #e9c14a;
   padding: 15px;
   background: #fff;
   box-shadow: $shadow;
+  border-radius: 10px;
+  margin: 0 10px 0 0;
+  transition: all ease 0.3s;
   h3 {
     margin: 0 0 15px;
   }
@@ -82,70 +84,70 @@ $cancel: #e9c14a;
   padding: 5px 10px;
   margin: 0 10px 10px 0;
   border-radius: 15px;
-  height:30px;
+  height: 30px;
   line-height: 18px;
   cursor: pointer;
   transition: all ease 0.3s;
-  &:focus{
-    outline:1px dotted grey;
+  &:focus {
+    outline: 1px dotted grey;
   }
-  &.blue{
-    border:1px solid $blue;
-    background:$blue;
-    color:#fff;
-    &:focus{
-      background:#fff;
-      color:$blue;
+  &.blue {
+    border: 1px solid $blue;
+    background: $blue;
+    color: #fff;
+    &:focus {
+      background: #fff;
+      color: $blue;
     }
-    @media screen and (min-width: 1200px){
-      &:hover{
-        background:#fff;
-        color:$blue;
+    @media screen and (min-width: 1200px) {
+      &:hover {
+        background: #fff;
+        color: $blue;
       }
     }
   }
-  &.green{
-    border:1px solid $green;
-    background:$green;
-    color:#fff;
-    &:focus{
-      background:#fff;
-      color:$green;
+  &.green {
+    border: 1px solid $green;
+    background: $green;
+    color: #fff;
+    &:focus {
+      background: #fff;
+      color: $green;
     }
-    @media screen and (min-width: 1200px){
-      &:hover{
-        background:#fff;
-        color:$green;
+    @media screen and (min-width: 1200px) {
+      &:hover {
+        background: #fff;
+        color: $green;
       }
     }
   }
-  &.red{
-    border:1px solid $red;
-    background:$red;
-    color:#fff;
-    &:focus{
-      background:#fff;
-      color:$red;
+  &.red {
+    border: 1px solid $red;
+    background: $red;
+    color: #fff;
+    &:focus {
+      background: #fff;
+      color: $red;
     }
-    @media screen and (min-width: 1200px){
-      &:hover{
-        background:#fff;
-        color:$red;
+    @media screen and (min-width: 1200px) {
+      &:hover {
+        background: #fff;
+        color: $red;
       }
     }
   }
-  &.cancel{
-    border:1px solid $cancel;
-    background:$cancel;
-    color:#fff;
-    &:focus{
-      background:#fff;
-      color:$cancel;
+  &.cancel {
+    border: 1px solid $cancel;
+    background: $cancel;
+    color: #fff;
+    &:focus {
+      background: #fff;
+      color: $cancel;
     }
-    @media screen and (min-width: 1200px){
-      &:hover{
-        background:#fff;
-        color:$cancel;
+    @media screen and (min-width: 1200px) {
+      &:hover {
+        background: #fff;
+        color: $cancel;
       }
     }
   }
