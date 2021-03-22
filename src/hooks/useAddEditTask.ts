@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { FormEvent, useState } from "react";
+import { createRef, FormEvent, useEffect, useState } from "react";
 import { updateColumnTasksAction } from "../store/actions/updateColumnTasksAction";
 import { deleteTaskAction } from "../store/actions/deleteTaskAction";
 import { moveTaskAction } from "../store/actions/moveTaskAction";
@@ -11,6 +11,7 @@ export const useAddEditTask = ({
   task,
 }: TaskFormType) => {
   const dispatch = useDispatch();
+  const titleBox =createRef<HTMLInputElement>();
   const columns = useSelector<State>((state) => state.columns) as string[];
   const [title, setTitle] = useState<string>(task?.title || "");
   const [description, setDescription] = useState<string>(
@@ -58,10 +59,14 @@ export const useAddEditTask = ({
     }
   }
   function cancelForm(e: any) {
+    console.log(e.target.id)
     if (e.target.id === "task-form-wrapper" || e.target.id === "cancel") {
       closeAction();
     }
   }
+  useEffect(()=>{
+    titleBox.current?.focus()
+  },[])
   return {
     columns,
     cancelForm,
@@ -74,6 +79,7 @@ export const useAddEditTask = ({
     setAssignee,
     deleteTask,
     target,
-    setTarget
+    setTarget,
+    titleBox,
   };
 };

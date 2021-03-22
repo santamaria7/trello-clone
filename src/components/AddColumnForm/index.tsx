@@ -1,5 +1,5 @@
 import { httpClient } from "../../utils/httpClient";
-import React, { FormEvent, useState } from "react";
+import React, { createRef, FormEvent, useEffect, useState } from "react";
 import { addColumnsAction } from "../../store/actions/updateColumnsAction";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const AddColumnForm: React.FC<ColumnFormType> = ({ onSuccess, onCancel }) => {
   const dispatch = useDispatch();
-
+const input = createRef<HTMLInputElement>()
   const [name, setName] = useState<string>("");
   const [error, setError] = useState("");
 
@@ -32,14 +32,18 @@ const AddColumnForm: React.FC<ColumnFormType> = ({ onSuccess, onCancel }) => {
       data: name,
     })*/
 
-    // Note that here we could use redux action to update the whole application from top.
-    // I found this solution faster, yet not as optimized as I wanted it to be.
-    updateColumns(name);
+    name.length > 0 ? updateColumns(name): setError("Column name cannot be empty.");
   }
+
+  useEffect(()=>{
+    input.current?.focus()
+  },[]);
+
   return (
     <div className="form-wrapper">
       <form method="post" onSubmit={addNewColumn}>
         <input
+            ref={input}
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}

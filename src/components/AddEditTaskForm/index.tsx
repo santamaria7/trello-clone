@@ -21,6 +21,7 @@ const AddEditTaskForm: React.FC<TaskFormType> = ({
     deleteTask,
     target,
     setTarget,
+    titleBox,
   } = useAddEditTask({
     closeAction,
     columnName: status,
@@ -28,6 +29,7 @@ const AddEditTaskForm: React.FC<TaskFormType> = ({
     task,
     editMode,
   });
+
   return (
     <div
       className="task-form-wrapper"
@@ -37,6 +39,7 @@ const AddEditTaskForm: React.FC<TaskFormType> = ({
       <form onSubmit={addTask}>
         <label>Title:</label>
         <input
+          ref={titleBox}
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -71,12 +74,23 @@ const AddEditTaskForm: React.FC<TaskFormType> = ({
           </>
         )}
 
-        <button type="submit" className="button green">Save</button>
-        <button type="button" onClick={cancelForm} id="cancel" className="button cancel">
+        <button type="submit" className="button green">
+          Save
+        </button>
+        <button
+          type="button"
+          onClick={cancelForm}
+          id="cancel"
+          className="button cancel"
+        >
           Cancel
         </button>
         {task && (
-          <button type="button" onClick={() => deleteTask(task?.id)} className="button red">
+          <button
+            type="button"
+            onClick={() => deleteTask(task?.id)}
+            className="button red"
+          >
             Delete
           </button>
         )}
