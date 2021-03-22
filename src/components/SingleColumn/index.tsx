@@ -17,7 +17,7 @@ const SingleColumn: React.FC<SingleColumnType> = ({ name, tasks}) => {
   return (
     <div className="column">
       <h3>{name}</h3>
-      <button type="button" onClick={toggleAddTaskForm}>
+      <button type="button" onClick={toggleAddTaskForm} className="button blue">
         Add A New Task
       </button>
       {tasks!.map((task, index) => {

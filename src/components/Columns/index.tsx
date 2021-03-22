@@ -14,7 +14,7 @@ const Columns = () => {
   } = useColumns();
   return (
     <div className="page-wrapper">
-      <button type="button" className="add-new" onClick={toggleAddColumnForm}>
+      <button type="button" className="add-new button blue" onClick={toggleAddColumnForm} >
         Add A New Column
       </button>
       <div className="columns-wrapper">

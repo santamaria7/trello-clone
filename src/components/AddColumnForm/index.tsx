@@ -44,8 +44,8 @@ const AddColumnForm: React.FC<ColumnFormType> = ({ onSuccess, onCancel }) => {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <button type="submit">Save</button>
-        <button type="button" onClick={onCancel}>Cancel</button>
+        <button type="submit" className="button green">Save</button>
+        <button type="button" onClick={onCancel} className="button cancel">Cancel</button>
         <p className="error">{error}</p>
       </form>
     </div>

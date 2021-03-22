@@ -71,12 +71,12 @@ const AddEditTaskForm: React.FC<TaskFormType> = ({
           </>
         )}
 
-        <button type="submit">Save</button>
-        <button type="button" onClick={cancelForm} id="cancel">
+        <button type="submit" className="button green">Save</button>
+        <button type="button" onClick={cancelForm} id="cancel" className="button cancel">
           Cancel
         </button>
         {task && (
-          <button type="button" onClick={() => deleteTask(task?.id)}>
+          <button type="button" onClick={() => deleteTask(task?.id)} className="button red">
             Delete
           </button>
         )}
