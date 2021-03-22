@@ -10,9 +10,10 @@ This project uses react, express.js and mysql. To run the project locally, creat
    
    Unfortunately I didn't have time to finish the API calls. If I had more time I would have taken care of the following:
    1. Handling the API calls properly,
-   2. using `Redux` for state management. Every single place that a component is updating its parent, should have been handled via `Redux`. The main reason I couldn't implement moving cards was that state management has been handled poorly.
-   3. using a css famework like `tailwind` for better UI
-   4. implement basic user authentication.
+   2. using a css framework like `tailwind` for better UI
+   3. implement basic user authentication.
+   
+   Update: I refactored the code to use `redux` for state management.
 
    
    
