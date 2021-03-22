@@ -6,6 +6,7 @@ type Task = {
   assignee?: string;
   title: string;
   description?: string;
+  target?: string;
 };
 
 type Column = {
@@ -36,6 +37,7 @@ type TaskFormType = {
   columnName: string;
   taskId: string;
   task?: Task;
+  editMode?: boolean;
 };
 
 /***************** store *******************/

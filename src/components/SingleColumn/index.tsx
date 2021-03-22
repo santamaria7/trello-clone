@@ -35,6 +35,7 @@ const SingleColumn: React.FC<SingleColumnType> = ({ name, tasks}) => {
           columnName={name}
           taskId={`${name}-${tasks!.length}`}
           task={editingTask}
+          editMode={editingTask !== undefined}
         />
       )}
     </div>

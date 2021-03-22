@@ -6,8 +6,10 @@ const AddEditTaskForm: React.FC<TaskFormType> = ({
   columnName: status,
   taskId,
   task,
+  editMode,
 }) => {
   const {
+    columns,
     cancelForm,
     addTask,
     title,
@@ -17,11 +19,14 @@ const AddEditTaskForm: React.FC<TaskFormType> = ({
     assignee,
     setAssignee,
     deleteTask,
+    target,
+    setTarget,
   } = useAddEditTask({
     closeAction,
     columnName: status,
     taskId,
     task,
+    editMode,
   });
   return (
     <div
@@ -51,8 +56,23 @@ const AddEditTaskForm: React.FC<TaskFormType> = ({
           value={assignee}
           onChange={(e) => setAssignee(e.target.value)}
         />
+        {editMode && (
+          <>
+            <label>Move to:</label>
+            <select value={target} onChange={(e) => setTarget(e.target.value)}>
+              {columns.map((col, index) => {
+                return (
+                  <option value={col} key={`${col}-${index}`}>
+                    {col}
+                  </option>
+                );
+              })}
+            </select>
+          </>
+        )}
+
         <button type="submit">Save</button>
-        <button type="button" onClick={cancelForm}>
+        <button type="button" onClick={cancelForm} id="cancel">
           Cancel
         </button>
         {task && (

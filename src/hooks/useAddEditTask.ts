@@ -1,7 +1,8 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FormEvent, useState } from "react";
 import { updateColumnTasksAction } from "../store/actions/updateColumnTasksAction";
 import { deleteTaskAction } from "../store/actions/deleteTaskAction";
+import { moveTaskAction } from "../store/actions/moveTaskAction";
 
 export const useAddEditTask = ({
   closeAction,
@@ -10,20 +11,27 @@ export const useAddEditTask = ({
   task,
 }: TaskFormType) => {
   const dispatch = useDispatch();
-
+  const columns = useSelector<State>((state) => state.columns) as string[];
   const [title, setTitle] = useState<string>(task?.title || "");
   const [description, setDescription] = useState<string>(
     task?.description || ""
   );
   const [assignee, setAssignee] = useState<string>(task?.assignee || "");
-
-  function updateTasks(task: Task) {
-    dispatch(
+  const [target, setTarget] = useState(status)
+  async function updateTasks(task: Task) {
+    await dispatch(
       updateColumnTasksAction({
         colName: status,
         task,
       })
     );
+    if(task.target){
+      dispatch(moveTaskAction({
+        parent: status,
+        target,
+        task
+      }))
+    }
     closeAction();
   }
   function deleteTask(taskId: string) {
@@ -41,6 +49,7 @@ export const useAddEditTask = ({
         status,
         creator: task?.creator || "MZ B", // In real world cases, we have user that has logged in and the name appears here
         assignee,
+        target,
         date: task?.date || new Date().getTime(),
         id: task?.id || taskId,
       };
@@ -49,11 +58,12 @@ export const useAddEditTask = ({
     }
   }
   function cancelForm(e: any) {
-    if (e.target.id === "task-form-wrapper") {
+    if (e.target.id === "task-form-wrapper" || e.target.id === "cancel") {
       closeAction();
     }
   }
   return {
+    columns,
     cancelForm,
     addTask,
     title,
@@ -63,5 +73,7 @@ export const useAddEditTask = ({
     assignee,
     setAssignee,
     deleteTask,
+    target,
+    setTarget
   };
 };
