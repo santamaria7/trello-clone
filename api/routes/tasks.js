@@ -4,16 +4,14 @@ const router = express.Router();
 
 router.get("/", async function (req, res, next) {
  // db.connect();
-  const { _results: result } = await db.query(
+  await db.query(
     "SELECT * FROM tasks",
     function (err, rows) {
       if (err) throw err;
-      return rows;
+      res.status(200).send(rows);
     }
   );
-
  // db.end();
-  res.status(200).send(result);
 });
 
 router.get("/:taskId", async function (req, res, next) {

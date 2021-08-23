@@ -59,6 +59,7 @@ export async function httpClient(params: ParamsType) {
           if (xhr.response !== "") {
             res = JSON.parse(xhr.response);
           }
+          console.log(res)
           resolve(res);
           break;
 
