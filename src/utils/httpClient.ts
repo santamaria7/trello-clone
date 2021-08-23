@@ -1,23 +1,19 @@
 type ParamsType = {
-    hasHeader?: boolean;
-    headers?: Record<string, string>;
-    method?: "GET" | "POST" | "PUT";
-    url: string;
-    data?: string | Document | Blob | ArrayBufferView | ArrayBuffer | FormData | URLSearchParams | ReadableStream<Uint8Array> | null ;
-}
-
-
+  hasHeader?: boolean;
+  headers?: Record<string, string>;
+  method?: "GET" | "POST" | "PUT";
+  url: string;
+  data?: any; //TODO: fix!
+};
 
 /**
  * Set up request headers
  * @param xhr
  * @param params
  */
-function setUpRequestHeaders(
-  xhr: XMLHttpRequest,
-  params: ParamsType
-) {
+function setUpRequestHeaders(xhr: XMLHttpRequest, params: ParamsType) {
   const { hasHeader = true, headers = {} } = params;
+  xhr.setRequestHeader("Content-Type", "application/json");
   if (hasHeader) {
     xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
@@ -30,15 +26,12 @@ function setUpRequestHeaders(
   }
 }
 
-
-
 /**
  *
  * @param params {object}
  * @param resolve {function}
  * @param reject {function}
  */
-
 
 /**
  * Handle XMLHttpRequest
@@ -47,6 +40,7 @@ function setUpRequestHeaders(
  */
 export async function httpClient(params: ParamsType) {
   const { method = "GET", url, data } = params;
+  console.log(data);
   return new Promise((resolve, reject) => {
     if (!url) {
       reject({ status: 404, data: "no data" });
@@ -77,6 +71,7 @@ export async function httpClient(params: ParamsType) {
           break;
       }
     };
-    data && data !== "" ? xhr.send(data) : xhr.send();
+    console.log('data',data)
+    data && data !== "" ? xhr.send(JSON.stringify(data)) : xhr.send();
   });
 }
