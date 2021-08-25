@@ -1,7 +1,7 @@
 type ParamsType = {
   hasHeader?: boolean;
   headers?: Record<string, string>;
-  method?: "GET" | "POST" | "PUT";
+  method?: "GET" | "POST" | "PUT" | "DELETE";
   url: string;
   data?: any; //TODO: fix!
 };

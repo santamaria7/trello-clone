@@ -26,6 +26,7 @@ type ColumnFormType = {
 
 type SingleColumnType = {
   name: string;
+  columnId: number;
   tasks: Task[]
 };
 

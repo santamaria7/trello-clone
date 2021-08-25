@@ -24,6 +24,7 @@ const Columns = () => {
               key={`${column.name}-${index}`}
               tasks={tasks[column.name]}
               name={column.name}
+              columnId={column.columnId}
             />
           );
         })}

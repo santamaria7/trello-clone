@@ -17,4 +17,12 @@ columnsRouter.post("/add", async function (req, res, next) {
   });
 });
 
+columnsRouter.post("/delete", async function(req, res, next){
+  const query = `DELETE FROM columns WHERE columnId = ${req.body.columnId}`;
+  await db.query(query, function(err,result){
+    //TODO: refactor
+    err ? res.status(500).send({ err }) : res.status(200).send({ result });
+  })
+})
+
 export default columnsRouter;
