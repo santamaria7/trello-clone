@@ -18,12 +18,12 @@ const Columns = () => {
         Add A New Column
       </button>
       <div className="columns-wrapper">
-        {columns.map((name, index) => {
+        {columns.map((column, index) => {
           return (
             <SingleColumn
-              key={`${name}-${index}`}
-              tasks={tasks[name]}
-              name={name}
+              key={`${column.name}-${index}`}
+              tasks={tasks[column.name]}
+              name={column.name}
             />
           );
         })}

@@ -8,7 +8,7 @@ import { httpClient } from "../utils/httpClient";
 export const useAddEditTask = ({
   closeAction,
   columnName: status,
-  taskId,
+    columnId,
   task,
 }: TaskFormType) => {
   const dispatch = useDispatch();
@@ -45,26 +45,26 @@ export const useAddEditTask = ({
   }
 
   function saveTaskInDB(data: Task) {
-    console.log(data)
     httpClient({
       method: "POST",
-      url: "/tasks/save",
+      url: task ? "/tasks/update":"/tasks/save",
       data,
     });
   }
 
-  function addTask(e: FormEvent) {
+  function saveTask(e: FormEvent) {
     e.preventDefault();
     if (title.length > 0) {
       const payload: Task = {
-        "title": title,
-        "description": description,
-        "status": status,
+        title,
+        description,
+        status,
         "creator": task?.creator || "MZ B", // In real world cases, we have user that has logged in and the name appears here
-        "assignee": assignee,
-        "target": target,
+        assignee,
+        target,
         "date": task?.date || new Date().getTime(),
-        "id": task?.id || taskId,
+        "taskId": task?.taskId || null,
+        "columnId": task?.columnId || columnId,
       };
 
       saveTaskInDB(payload);
@@ -83,7 +83,7 @@ export const useAddEditTask = ({
   return {
     columns,
     cancelForm,
-    addTask,
+    saveTask,
     title,
     setTitle,
     description,

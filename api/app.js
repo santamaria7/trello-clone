@@ -5,6 +5,7 @@ import logger from "morgan";
 import cors from "cors";
 import indexRouter from "./routes/index";
 import tasksRouter from "./routes/tasks";
+import columnsRouter from "./routes/columns";
 
 const app = express();
 app.use(cors());
@@ -14,6 +15,7 @@ app.use(cookieParser());
 
 
 app.use("/", indexRouter);
+app.use("/columns", columnsRouter)
 app.use("/tasks", tasksRouter);
 
 // catch 404 and forward to error handler

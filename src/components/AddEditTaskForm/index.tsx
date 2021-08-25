@@ -4,14 +4,14 @@ import { useAddEditTask } from "../../hooks/useAddEditTask";
 const AddEditTaskForm: React.FC<TaskFormType> = ({
   closeAction,
   columnName: status,
-  taskId,
+  columnId,
   task,
   editMode,
 }) => {
   const {
     columns,
     cancelForm,
-    addTask,
+    saveTask,
     title,
     setTitle,
     description,
@@ -25,7 +25,7 @@ const AddEditTaskForm: React.FC<TaskFormType> = ({
   } = useAddEditTask({
     closeAction,
     columnName: status,
-    taskId,
+    columnId,
     task,
     editMode,
   });
@@ -36,7 +36,7 @@ const AddEditTaskForm: React.FC<TaskFormType> = ({
       id="task-form-wrapper"
       onClick={cancelForm}
     >
-      <form onSubmit={addTask}>
+      <form onSubmit={saveTask}>
         <label>Title:</label>
         <input
           ref={titleBox}
@@ -88,7 +88,7 @@ const AddEditTaskForm: React.FC<TaskFormType> = ({
         {task && (
           <button
             type="button"
-            onClick={() => deleteTask(task?.id)}
+            onClick={() => deleteTask(task?.taskId!)}
             className="button red"
           >
             Delete

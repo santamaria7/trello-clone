@@ -6,17 +6,20 @@ import { columnsReceivedAction } from "../store/actions/columnsReceivedAction";
 
 export const useColumns = () => {
   const dispatch = useDispatch();
-  const columns = useSelector<State>((state) => state.columns) as string[];
+  const columns = useSelector<State>((state) => state.columns) as Column[];
   const tasks = useSelector<State>((state) => state.tasks) as TasksType;
   const [showAddColumnForm, setShowAddColumnForm] = useState<boolean>(false);
   async function fetchColumns() {
-    const res = (await httpClient({ url: "/tasks" })) as Task[];
+    const res = (await httpClient({ url: "/columns" })) as Column[];
+    dispatch(columnsReceivedAction(res));
+
+    /* const res = (await httpClient({ url: "/tasks" })) as Task[];
     const modifiedRes = res.reduce((final, x) => {
       const colName = x.target || x.status;
       final[colName] = res.filter((y) => (y.target || y.status) === colName);
       return final;
-    }, {} as TasksType);
-    dispatch(columnsReceivedAction(modifiedRes));
+    }, {} as TasksType);*/
+    //
   }
 
   function toggleAddColumnForm() {

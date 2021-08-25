@@ -59,7 +59,6 @@ export async function httpClient(params: ParamsType) {
           if (xhr.response !== "") {
             res = JSON.parse(xhr.response);
           }
-          console.log(res)
           resolve(res);
           break;
 
@@ -72,7 +71,6 @@ export async function httpClient(params: ParamsType) {
           break;
       }
     };
-    console.log('data',data)
     data && data !== "" ? xhr.send(JSON.stringify(data)) : xhr.send();
   });
 }

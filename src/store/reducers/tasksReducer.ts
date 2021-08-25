@@ -19,7 +19,7 @@ export function tasksReducer(
       };
     case actionTypes.TASK_UPDATED:
       const { colName, task } = action.payload as UpdateTask;
-      const index = state[colName].findIndex((item) => item.id === task.id);
+      const index = state[colName].findIndex((item) => item.taskId === task.taskId);
       const copy = state[colName].slice();
       copy.splice(index, 1, task);
       return {
@@ -28,7 +28,7 @@ export function tasksReducer(
       };
     case actionTypes.DELETE_TASK:
       const { colName: name, id } = action.payload as DeleteTask;
-      const i = state[name].findIndex((item) => item.id === id);
+      const i = state[name].findIndex((item) => item.taskId === id);
       const copy2 = state[name].slice();
       copy2.splice(i, 1);
       return {
@@ -46,7 +46,7 @@ export function tasksReducer(
     case actionTypes.MOVE_TASK:
       const { parent, target, task: item } = action.payload as MoveTask;
       const parentTasks = state[parent];
-      const j = parentTasks.findIndex((x) => x.id === item.id);
+      const j = parentTasks.findIndex((x) => x.columnId === item.columnId);
       parentTasks.splice(j, 1);
       return {
         ...state,

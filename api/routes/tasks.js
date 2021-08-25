@@ -1,21 +1,18 @@
 import express from "express";
 import { db } from "../db";
-const router = express.Router();
+const tasksRouter = express.Router();
 
-router.get("/", async function (req, res, next) {
- // db.connect();
-  await db.query(
-    "SELECT * FROM tasks",
-    function (err, rows) {
-      if (err) throw err;
-      res.status(200).send(rows);
-    }
-  );
- // db.end();
+tasksRouter.get("/", async function (req, res, next) {
+  // db.connect();
+  await db.query("SELECT * FROM tasks", function (err, rows) {
+    if (err) throw err;
+    res.status(200).send(rows);
+  });
+  // db.end();
 });
 
-router.get("/:taskId", async function (req, res, next) {
- // db.connect();
+tasksRouter.get("/:taskId", async function (req, res, next) {
+  // db.connect();
   const { _results: result } = await db.query(
     "SELECT * FROM tasks",
     function (err, rows) {
@@ -28,25 +25,38 @@ router.get("/:taskId", async function (req, res, next) {
   res.status(200).send(result);
 });
 
-router.post("/save", async function (req, res, next) {
-  const {
-    creator,
-    date,
-    status,
-    assignee,
-    title,
-    description,
-    target,
-  } = req.body;
-  const query = `INSERT INTO tasks (creator, date, status, assignee, title, description, target) VALUES ("${creator}", ${date}, "${status}", "${assignee}", "${title}", "${description}", "${target}")`;
- // db.connect();
+tasksRouter.post("/update", async function (req, res, next) {
+  const data = req.body;
+  const fields = Object.keys(data).filter((key) => key !== "id");
+  let query = `UPDATE tasks SET `;
+  fields.forEach((field, index) => {
+    query += `${field} = "${data[field]}"`;
+    if (index < fields.length - 1) {
+      query += `, `;
+    }
+  });
+  query += ` WHERE id = "${data.id}"`;
+
+  await db.query(query, function (err, result) {
+    if (err) {
+      res.status(500).send({ err });
+    }
+    res.status(200).send("success");
+  });
+});
+
+tasksRouter.post("/save", async function (req, res, next) {
+  const { creator, date, status, assignee, title, description, target, id } =
+    req.body;
+  const query = `INSERT INTO tasks (creator, date, status, assignee, title, description, target, id) VALUES ("${creator}", ${date}, "${status}", "${assignee}", "${title}", "${description}", "${target}", "${id}")`;
+  // db.connect();
   await db.query(query, function (err, rows) {
     if (err) throw err;
     return rows;
   });
 
- // db.end();
-  res.status(200).send('success');
+  // db.end();
+  res.status(200).send("success");
 });
 
-export default router;
+export default tasksRouter;

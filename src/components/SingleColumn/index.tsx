@@ -20,20 +20,20 @@ const SingleColumn: React.FC<SingleColumnType> = ({ name, tasks}) => {
       <button type="button" onClick={toggleAddTaskForm} className="button blue">
         Add A New Task
       </button>
-      {tasks!.map((task, index) => {
+     {/* {tasks!.map((task, index) => {
         return (
           <SingleTask
-            key={`${task.id}-${index}`}
+            key={`${task.taskId}-${index}`}
             task={task}
             onClick={() => editTask(task)}
           />
         );
-      })}
+      })}*/}
       {showAddTask && (
         <AddEditTaskForm
           closeAction={toggleAddTaskForm}
           columnName={name}
-          taskId={`${name}-${tasks!.length}`}
+          columnId={`${name}-${tasks!.length}`}
           task={editingTask}
           editMode={editingTask !== undefined}
         />
