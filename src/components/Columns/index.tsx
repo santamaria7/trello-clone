@@ -10,11 +10,10 @@ const Columns = () => {
     tasks,
     toggleAddColumnForm,
     showAddColumnForm,
-    setShowAddColumnForm,
   } = useColumns();
   return (
     <div className="page-wrapper">
-      <button type="button" className="add-new button blue" onClick={toggleAddColumnForm} >
+      <button type="button" className="add-new button blue" onClick={() => toggleAddColumnForm(true)} >
         Add A New Column
       </button>
       <div className="columns-wrapper">
@@ -31,8 +30,8 @@ const Columns = () => {
       </div>
       {showAddColumnForm && (
         <AddColumnForm
-          onSuccess={toggleAddColumnForm}
-          onCancel={() => setShowAddColumnForm(false)}
+          onSuccess={() => toggleAddColumnForm(false)}
+          onCancel={() => toggleAddColumnForm(false)}
         />
       )}
     </div>

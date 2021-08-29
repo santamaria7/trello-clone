@@ -2,17 +2,21 @@ import React, { useState } from "react";
 import SingleTask from "../SingleTask";
 import AddEditTaskForm from "../AddEditTaskForm";
 import { httpClient } from "../../utils/httpClient";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ColumnDeletedAction } from "../../store/actions/ColumnDeletedAction";
+import { toggleColumnFormAction } from "../../store/actions/toggleColumnFormAction";
 
 const SingleColumn: React.FC<SingleColumnType> = ({
   name,
   tasks,
   columnId,
 }) => {
+  const [columnName, setColumnName] = useState<string>(name);
   const [showAddTask, setShowAddTask] = useState<boolean>(false);
   const [editingTask, setEditingTask] = useState<Task | undefined>(undefined);
+  const [edit, setEdit] = useState<boolean>(false);
   const dispatch = useDispatch();
+
   function toggleAddTaskForm() {
     setShowAddTask((prevState) => !prevState);
   }
@@ -40,16 +44,53 @@ const SingleColumn: React.FC<SingleColumnType> = ({
       });
   }
 
+  function toggleEditColumnMode() {
+    setEdit((state) => !state);
+  }
+
+  function editColumn(e: any) {
+    e.preventDefault();
+    httpClient({
+      method: "POST",
+      url: "/columns/edit",
+      data: {
+        columnId,
+        name: columnName,
+      },
+    })
+      .then((res) => {})
+      .catch((err) => {
+        //TODO: alert error
+        console.log(err);
+      })
+      .finally(() => toggleEditColumnMode());
+  }
+
   return (
     <div className="column">
       <div className="column__heading">
-        <h3>{name}</h3>
+        {/* //TODO: Use Icons */}
+        {edit ? (
+          <form onSubmit={editColumn}>
+            <input
+              value={columnName}
+              onChange={(e) => setColumnName(e.target.value)}
+            />
+            <button type="submit">confirm</button>
+            <button type="button" onClick={toggleEditColumnMode}>
+              cancel
+            </button>
+          </form>
+        ) : (
+          <h3>{columnName}</h3>
+        )}
         <div className="column__heading__edit">
-          {/* //TODO: Use Icons */}
           <button type="button" onClick={deleteColumn}>
             +
           </button>
-          {/* <button type="button" onClick={editColumnName}>edit</button>*/}
+          <button type="button" onClick={toggleEditColumnMode}>
+            edit
+          </button>
         </div>
       </div>
 

@@ -3,12 +3,17 @@ import { httpClient } from "../utils/httpClient";
 
 import { useDispatch, useSelector } from "react-redux";
 import { columnsReceivedAction } from "../store/actions/columnsReceivedAction";
+import { toggleColumnFormAction } from "../store/actions/toggleColumnFormAction";
 
 export const useColumns = () => {
   const dispatch = useDispatch();
   const columns = useSelector<State>((state) => state.columns) as Column[];
   const tasks = useSelector<State>((state) => state.tasks) as TasksType;
-  const [showAddColumnForm, setShowAddColumnForm] = useState<boolean>(false);
+
+  const showAddColumnForm = useSelector<State>(
+    (state) => state.view.showColumnForm
+  ) as boolean;
+
   async function fetchColumns() {
     const res = (await httpClient({ url: "/columns" })) as Column[];
     dispatch(columnsReceivedAction(res));
@@ -22,8 +27,11 @@ export const useColumns = () => {
     //
   }
 
-  function toggleAddColumnForm() {
-    setShowAddColumnForm((prevState) => !prevState);
+  function toggleAddColumnForm(value: boolean) {
+    console.log('here')
+    dispatch(
+      toggleColumnFormAction(value)
+    );
   }
 
   useEffect(() => {
@@ -35,6 +43,5 @@ export const useColumns = () => {
     tasks,
     toggleAddColumnForm,
     showAddColumnForm,
-    setShowAddColumnForm,
   };
 };

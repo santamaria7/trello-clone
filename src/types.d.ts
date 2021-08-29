@@ -50,9 +50,15 @@ type Action<T> ={
   payload?: T;
 }
 
+type View = {
+  showColumnForm: boolean;
+  showAlert: boolean;
+}
+
 type State = {
   columns: string[];
-  tasks:TasksType
+  tasks:TasksType;
+  view: View;
 }
 
 type UpdateTask = {

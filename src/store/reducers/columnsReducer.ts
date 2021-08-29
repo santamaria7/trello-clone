@@ -11,7 +11,7 @@ export function columnsReducer(
     case actionTypes.COLUMNS_RECEIVED:
       return action.payload;
     case actionTypes.ADD_COLUMN:
-      return [...state,(action.payload as AddColumn).name];
+      return [...state,action.payload];
     case actionTypes.COLUMN_DELETED:
       return state.filter(item => item.columnId !== action.payload);
 
