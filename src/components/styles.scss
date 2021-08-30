@@ -26,9 +26,33 @@ $cancel: #e9c14a;
   margin: 0 10px 0 0;
   transition: all ease 0.3s;
   h3 {
-    margin: 0 0 15px;
+    flex-grow: 1;
+    margin: 0;
+  }
+  &__heading {
+    display: flex;
+    align-items:center;
   }
 }
+
+.action-button {
+  cursor: pointer;
+  background: transparent;
+  padding: 0;
+  display: inline-block;
+  border: none;
+  margin: 0 2px;
+  &.blue {
+    color: $blue;
+  }
+  &.green {
+    color: $green;
+  }
+  &.red {
+    color: $red;
+  }
+}
+
 .form-wrapper {
   position: absolute;
   padding: 15px;
@@ -154,4 +178,12 @@ $cancel: #e9c14a;
 }
 .error {
   color: $red;
+}
+
+.margin {
+  &-top {
+    &-15{
+      margin-top: 15px;
+    }
+  }
 }

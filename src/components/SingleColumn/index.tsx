@@ -69,32 +69,28 @@ const SingleColumn: React.FC<SingleColumnType> = ({
   return (
     <div className="column">
       <div className="column__heading">
-        {/* //TODO: Use Icons */}
         {edit ? (
           <form onSubmit={editColumn}>
             <input
               value={columnName}
               onChange={(e) => setColumnName(e.target.value)}
             />
-            <button type="submit">confirm</button>
-            <button type="button" onClick={toggleEditColumnMode}>
-              cancel
-            </button>
+            <button type="submit" className="fas fa-check action-button green" aria-label="confirm"/>
+            <button type="button" onClick={toggleEditColumnMode} className="fas fa-times action-button red" aria-label="cancel" />
           </form>
         ) : (
-          <h3>{columnName}</h3>
+            <>
+              <h3>{columnName}</h3>
+              <div className="column__heading__edit">
+                <button type="button" onClick={deleteColumn} className="far fa-trash-alt action-button" aria-label="delete"/>
+                <button type="button" onClick={toggleEditColumnMode} className="far fa-edit action-button" aria-label="edit"/>
+              </div>
+            </>
         )}
-        <div className="column__heading__edit">
-          <button type="button" onClick={deleteColumn}>
-            +
-          </button>
-          <button type="button" onClick={toggleEditColumnMode}>
-            edit
-          </button>
-        </div>
+
       </div>
 
-      <button type="button" onClick={toggleAddTaskForm} className="button blue">
+      <button type="button" onClick={toggleAddTaskForm} className="button blue margin-top-15">
         Add A New Task
       </button>
       {/* {tasks!.map((task, index) => {
