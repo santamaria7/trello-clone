@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import SingleTask from "../SingleTask";
 import AddEditTaskForm from "../AddEditTaskForm";
 import { httpClient } from "../../utils/httpClient";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { ColumnDeletedAction } from "../../store/actions/ColumnDeletedAction";
-import { toggleColumnFormAction } from "../../store/actions/toggleColumnFormAction";
+import { columnRenamedAction } from "../../store/actions/columnRenamedAction";
 
 const SingleColumn: React.FC<SingleColumnType> = ({
   name,
@@ -58,12 +57,22 @@ const SingleColumn: React.FC<SingleColumnType> = ({
         name: columnName,
       },
     })
-      .then((res) => {})
+      .then((res) => {
+        dispatch(columnRenamedAction({
+          old: name,
+          new: columnName
+        }))
+      })
       .catch((err) => {
         //TODO: alert error
         console.log(err);
       })
       .finally(() => toggleEditColumnMode());
+  }
+
+  function cancelEditColumn(){
+    setColumnName(name);
+    toggleEditColumnMode()
   }
 
   return (
@@ -76,7 +85,7 @@ const SingleColumn: React.FC<SingleColumnType> = ({
               onChange={(e) => setColumnName(e.target.value)}
             />
             <button type="submit" className="fas fa-check action-button green" aria-label="confirm"/>
-            <button type="button" onClick={toggleEditColumnMode} className="fas fa-times action-button red" aria-label="cancel" />
+            <button type="button" onClick={cancelEditColumn} className="fas fa-times action-button red" aria-label="cancel" />
           </form>
         ) : (
             <>

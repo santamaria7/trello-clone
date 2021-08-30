@@ -7,5 +7,6 @@ export enum actionTypes {
     ADD_TASK = 'add_task',
     MOVE_TASK = 'move_task',
     COLUMN_DELETED = 'col_del',
-    TOGGLE_COLUMN_FORM='tggl_col_form'
+    TOGGLE_COLUMN_FORM='tggl_col_form',
+    COLUMN_RENAMED ='col_ren'
 }

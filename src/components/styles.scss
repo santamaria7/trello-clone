@@ -3,6 +3,7 @@ $blue: blue;
 $green: green;
 $red: #ff3c3b;
 $cancel: #e9c14a;
+$border: #dedede;
 .page-wrapper {
   padding: 30px;
   position: relative;
@@ -32,6 +33,20 @@ $cancel: #e9c14a;
   &__heading {
     display: flex;
     align-items:center;
+    form {
+      padding:0 5px;
+      border: 1px solid $border;
+      border-radius: 3px;
+      input{
+        padding:5px;
+        border: none;
+        outline: none;
+      }
+      &:focus{
+        border: 1px solid $blue;
+      }
+
+    }
   }
 }
 

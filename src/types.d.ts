@@ -79,3 +79,7 @@ type MoveTask = {
 type AddColumn = {
   name: string;
 }
+type RenameColumn = {
+  old: string;
+  new: string;
+}
