@@ -56,9 +56,7 @@ export async function httpClient(params: ParamsType) {
       switch (xhr.status) {
         case 200:
           let res;
-          if (xhr.response !== "") {
-            res = JSON.parse(xhr.response);
-          }
+          res = JSON.parse(xhr.response);
           resolve(res);
           break;
 

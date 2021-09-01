@@ -21,7 +21,7 @@ const Columns = () => {
           return (
             <SingleColumn
               key={`${column.name}-${index}`}
-              tasks={tasks[column.name]}
+              tasks={tasks[column.columnId]}
               name={column.name}
               columnId={column.columnId}
             />

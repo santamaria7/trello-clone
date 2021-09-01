@@ -1,6 +1,6 @@
 type Task = {
   taskId: string | null;
-  columnId: string;
+  columnId: number;
   creator: string;
   date: number; //timestamp
   status: string;
@@ -38,7 +38,7 @@ type SingleTaskType = {
 type TaskFormType = {
   closeAction: ()=> void;
   columnName: string;
-  columnId: string;
+  columnId: number;
   task?: Task;
   editMode?: boolean;
 };
@@ -62,7 +62,7 @@ type State = {
 }
 
 type UpdateTask = {
-  colName: string;
+  colId: number;
   task: Task
 }
 

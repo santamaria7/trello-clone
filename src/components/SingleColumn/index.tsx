@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AddEditTaskForm from "../AddEditTaskForm";
 import { ColumnHeading } from "./ColumnHeading";
+import SingleTask from "../SingleTask";
 
 const SingleColumn: React.FC<SingleColumnType> = ({
   name,
@@ -33,12 +34,12 @@ const SingleColumn: React.FC<SingleColumnType> = ({
         <AddEditTaskForm
           closeAction={toggleAddTaskForm}
           columnName={name}
-          columnId={`${name}-${tasks!.length}`}
+          columnId={columnId}
           task={editingTask}
           editMode={editingTask !== undefined}
         />
       )}
-      {/* {tasks!.map((task, index) => {
+      {tasks?.map((task, index) => {
         return (
           <SingleTask
             key={`${task.taskId}-${index}`}
@@ -46,7 +47,7 @@ const SingleColumn: React.FC<SingleColumnType> = ({
             onClick={() => editTask(task)}
           />
         );
-      })}*/}
+      })}
     </div>
   );
 };

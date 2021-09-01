@@ -4,11 +4,12 @@ import { updateColumnTasksAction } from "../store/actions/updateColumnTasksActio
 import { deleteTaskAction } from "../store/actions/deleteTaskAction";
 import { moveTaskAction } from "../store/actions/moveTaskAction";
 import { httpClient } from "../utils/httpClient";
+import { addTaskAction } from "../store/actions/addTaskAction";
 
 export const useAddEditTask = ({
   closeAction,
   columnName: status,
-    columnId,
+  columnId,
   task,
 }: TaskFormType) => {
   const dispatch = useDispatch();
@@ -21,13 +22,8 @@ export const useAddEditTask = ({
   const [assignee, setAssignee] = useState<string>(task?.assignee || "");
   const [target, setTarget] = useState(status);
   async function updateTasks(task: Task) {
-    await dispatch(
-      updateColumnTasksAction({
-        colName: status,
-        task,
-      })
-    );
-    if (task.target) {
+    dispatch((task.taskId ? updateColumnTasksAction : addTaskAction)(task));
+    /*if (task.target) {
       dispatch(
         moveTaskAction({
           parent: status,
@@ -35,21 +31,13 @@ export const useAddEditTask = ({
           task,
         })
       );
-    }
+    }*/
     closeAction();
   }
   function deleteTask(taskId: string) {
     //TODO: API call to update the DB
     dispatch(deleteTaskAction({ colName: status, id: taskId }));
     closeAction();
-  }
-
-  function saveTaskInDB(data: Task) {
-    httpClient({
-      method: "POST",
-      url: task ? "/tasks/update":"/tasks/save",
-      data,
-    });
   }
 
   function saveTask(e: FormEvent) {
@@ -59,16 +47,26 @@ export const useAddEditTask = ({
         title,
         description,
         status,
-        "creator": task?.creator || "MZ B", // In real world cases, we have user that has logged in and the name appears here
+        creator: task?.creator || "MZ B", // In real world cases, we have user that has logged in and the name appears here
         assignee,
         target,
-        "date": task?.date || new Date().getTime(),
-        "taskId": task?.taskId || null,
-        "columnId": task?.columnId || columnId,
+        date: task?.date || new Date().setSeconds(0, 0) / 1000,
+        taskId: task?.taskId || null,
+        columnId: task?.columnId || columnId,
       };
 
-      saveTaskInDB(payload);
-      updateTasks(payload);
+      httpClient({
+        method: "POST",
+        url: task ? "/tasks/update" : "/tasks/save",
+        data: payload,
+      })
+        .then((res) => {
+          updateTasks(payload);
+        })
+        .catch((err) => {
+          console.log(err);
+          //TODO: alert try again
+        });
     }
   }
   function cancelForm(e: any) {

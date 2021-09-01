@@ -4,6 +4,7 @@ import { httpClient } from "../utils/httpClient";
 import { useDispatch, useSelector } from "react-redux";
 import { columnsReceivedAction } from "../store/actions/columnsReceivedAction";
 import { toggleColumnFormAction } from "../store/actions/toggleColumnFormAction";
+import { tasksReceivedAction } from "../store/actions/tasksReceivedAction";
 
 export const useColumns = () => {
   const dispatch = useDispatch();
@@ -17,18 +18,12 @@ export const useColumns = () => {
   async function fetchColumns() {
     const res = (await httpClient({ url: "/columns" })) as Column[];
     dispatch(columnsReceivedAction(res));
+    const tasks = (await httpClient({ url: "/tasks" })) as Task[];
+    dispatch(tasksReceivedAction(tasks))
 
-    /* const res = (await httpClient({ url: "/tasks" })) as Task[];
-    const modifiedRes = res.reduce((final, x) => {
-      const colName = x.target || x.status;
-      final[colName] = res.filter((y) => (y.target || y.status) === colName);
-      return final;
-    }, {} as TasksType);*/
-    //
   }
 
   function toggleAddColumnForm(value: boolean) {
-    console.log('here')
     dispatch(
       toggleColumnFormAction(value)
     );

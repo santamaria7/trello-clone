@@ -41,22 +41,22 @@ tasksRouter.post("/update", async function (req, res, next) {
     if (err) {
       res.status(500).send({ err });
     }
-    res.status(200).send("success");
+    res.status(200).send({result});
   });
 });
 
 tasksRouter.post("/save", async function (req, res, next) {
-  const { creator, date, status, assignee, title, description, target, id } =
+  const { creator, date, status, assignee, title, description, target, columnId} =
     req.body;
-  const query = `INSERT INTO tasks (creator, date, status, assignee, title, description, target, id) VALUES ("${creator}", ${date}, "${status}", "${assignee}", "${title}", "${description}", "${target}", "${id}")`;
-  // db.connect();
-  await db.query(query, function (err, rows) {
-    if (err) throw err;
-    return rows;
+  const query = `INSERT INTO tasks (creator, date, status, assignee, title, description, target, columnId) VALUES ("${creator}", ${date}, "${status}", "${assignee}", "${title}", "${description}", "${target}", ${columnId})`;
+
+  await db.query(query, function (err, result) {
+    if (err) {
+      res.status(500).send({ err });
+    }
+    res.status(200).send({result});
   });
 
-  // db.end();
-  res.status(200).send("success");
 });
 
 export default tasksRouter;
