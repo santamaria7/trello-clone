@@ -62,11 +62,11 @@ const AddEditTaskForm: React.FC<TaskFormType> = ({
         {editMode && (
           <>
             <label>Move to:</label>
-            <select value={target} onChange={(e) => setTarget(e.target.value)}>
+            <select value={target} onChange={(e) => setTarget(parseInt(e.target.value))}>
               {columns.map((col, index) => {
                 return (
-                  <option value={col} key={`${col}-${index}`}>
-                    {col}
+                  <option value={col.columnId} key={`${col}-${index}`}>
+                    {col.name}
                   </option>
                 );
               })}

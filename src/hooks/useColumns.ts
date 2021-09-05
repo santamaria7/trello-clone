@@ -9,7 +9,7 @@ import { tasksReceivedAction } from "../store/actions/tasksReceivedAction";
 export const useColumns = () => {
   const dispatch = useDispatch();
   const columns = useSelector<State>((state) => state.columns) as Column[];
-  const tasks = useSelector<State>((state) => state.tasks) as TasksType;
+  const tasks = useSelector<State>((state) => state.tasks) as Task[];
 
   const showAddColumnForm = useSelector<State>(
     (state) => state.view.showColumnForm

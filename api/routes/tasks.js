@@ -27,7 +27,7 @@ tasksRouter.get("/:taskId", async function (req, res, next) {
 
 tasksRouter.post("/update", async function (req, res, next) {
   const data = req.body;
-  const fields = Object.keys(data).filter((key) => key !== "id");
+  const fields = Object.keys(data).filter((key) => key !== "taskId");
   let query = `UPDATE tasks SET `;
   fields.forEach((field, index) => {
     query += `${field} = "${data[field]}"`;
@@ -35,7 +35,7 @@ tasksRouter.post("/update", async function (req, res, next) {
       query += `, `;
     }
   });
-  query += ` WHERE id = "${data.id}"`;
+  query += ` WHERE taskId = "${data.taskId}"`;
 
   await db.query(query, function (err, result) {
     if (err) {

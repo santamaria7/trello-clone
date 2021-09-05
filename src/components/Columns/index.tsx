@@ -11,6 +11,7 @@ const Columns = () => {
     toggleAddColumnForm,
     showAddColumnForm,
   } = useColumns();
+
   return (
     <div className="page-wrapper">
       <button type="button" className="add-new button blue" onClick={() => toggleAddColumnForm(true)} >
@@ -18,10 +19,11 @@ const Columns = () => {
       </button>
       <div className="columns-wrapper">
         {columns.map((column, index) => {
+            const modifiedTasks = tasks.filter(item => item.columnId === column.columnId)
           return (
             <SingleColumn
               key={`${column.name}-${index}`}
-              tasks={tasks[column.columnId]}
+              tasks={modifiedTasks}
               name={column.name}
               columnId={column.columnId}
             />

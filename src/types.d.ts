@@ -7,7 +7,6 @@ type Task = {
   assignee?: string;
   title: string;
   description?: string;
-  target?: string;
 };
 
 type Column = {
@@ -61,20 +60,11 @@ type State = {
   view: View;
 }
 
-type UpdateTask = {
-  colId: number;
-  task: Task
-}
-
 type DeleteTask = {
   colName: string;
   id: string;
 }
-type MoveTask = {
-  parent: string;
-  target: string;
-  task: Task;
-}
+
 
 type AddColumn = {
   name: string;
